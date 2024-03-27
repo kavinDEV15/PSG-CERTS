@@ -1,0 +1,195 @@
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // Connect to the local blockchain (Ganache in this example)
+  const web3 = new Web3('http://127.0.0.1:7545'); // Update with your local blockchain address
+
+  // Set the contract address and ABI
+  const contractAddress = '0x3fd4A959069A237e677Ede5Bfd72D734c84B3C8e'; // Replace with your deployed contract address
+  const contractABI = [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "studentAddress",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "studentName",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "courseCompleted",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "issueDate",
+            "type": "uint256"
+          }
+        ],
+        "name": "CertificateIssued",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "studentAddress",
+            "type": "address"
+          }
+        ],
+        "name": "CertificateVerified",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "name": "certificates",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "studentAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "studentName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "courseCompleted",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "issueDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isVerified",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "schoolAdmin",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "studentAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "studentName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "courseCompleted",
+            "type": "string"
+          }
+        ],
+        "name": "issueCertificate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "studentAddress",
+            "type": "address"
+          }
+        ],
+        "name": "verifyCertificate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ];
+
+  // Create a contract instance
+  const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+  // Function to issue a certificate
+  window.issueCertificate = async () => {
+    const studentAddress = document.getElementById('studentAddress').value;
+    const studentName = document.getElementById('studentName').value;
+    const courseCompleted = document.getElementById('courseCompleted').value;
+
+    try {
+        const accounts = await web3.eth.getAccounts();
+        const estimatedGas = await contract.methods.issueCertificate(studentAddress, studentName, courseCompleted)
+            .estimateGas({ from: accounts[0] });
+
+        await contract.methods.issueCertificate(studentAddress, studentName, courseCompleted)
+            .send({ from: accounts[0], gas: estimatedGas });
+
+        document.getElementById('output').innerHTML = `Certificate issued for ${studentName}`;
+    } catch (error) {
+        console.error(error);
+        document.getElementById('output').innerHTML = `Certificate issued for ${studentName}`;
+    }
+};
+
+ 
+
+  // Function to verify a certificate
+  window.verifyCertificate = async () => {
+      const verifyStudentAddress = document.getElementById('verifyStudentAddress').value;
+
+      try {
+          const isVerified = await contract.methods.certificates(verifyStudentAddress).call();
+          if (isVerified) {
+              document.getElementById('output').innerHTML = 'Certificate is verified!';
+              document.getElementById('output').style.color = '#00ff00';
+          } else {
+              document.getElementById('output').innerHTML = 'Certificate is not verified.';
+              document.getElementById('output').style.color = 'red';
+          }
+      } catch (error) {
+          console.error(error);
+          document.getElementById('output').innerHTML = 'Error verifying certificate. Check the console for details.';
+          document.getElementById('output').style.color = 'red';
+      }
+  };
+});

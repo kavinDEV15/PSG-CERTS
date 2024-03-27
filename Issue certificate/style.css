@@ -1,0 +1,89 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #1a1a1a; /* Dark background for the body */
+    color: white; /* White text color for better readability */
+}
+
+h1 {
+    text-align: center;
+    color: #cba258; /* Etihad light gold with low saturation */
+}
+
+div {
+    background-color: #262626;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 400px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+div:hover {
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.3);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    background-color: #333;
+    border: none;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+input:hover,
+input:focus {
+    background-color: #3d3d3d;
+}
+
+button {
+    cursor: pointer;
+    background-color: #333;
+    color: #cba258; /* Button text color with Etihad light gold */
+    border: none;
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #3d3d3d;
+    transform: translateY(-2px);
+}
+
+#output {
+    background-color: #262626;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 350px; /* Smaller output div */
+    margin: 30px auto;
+}
+
+#output:contains('verified') {
+    color: #00ff00; /* Make text green if contains 'verified' */
+}
+
+/* Custom text selection color */
+::selection {
+    background: #cba258; /* Etihad light gold for text highlight */
+    color: white;
+}
+
+::-moz-selection {
+    background: #cba258; /* For Firefox */
+    color: white;
+}

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Certificate Management</h1>
+
+    <div id="issue-certificate-section">
+        <h2>Issue Certificate</h2>
+        <form id="issueCertificateForm">
+            <label for="studentAddress">Student Address:</label>
+            <input type="text" id="studentAddress" required>
+            
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" required>
+            
+            <label for="courseCompleted">Course Completed:</label>
+            <input type="text" id="courseCompleted" required>
+
+            <button type="button" onclick="issueCertificate(); getCertificateLink();">Issue Certificate</button>
+        </form>
+    </div>
+
+    <div id="verify-certificate-section">
+        <h2>Verify Certificate</h2>
+        <form id="verifyCertificateForm">
+          <label for="verifyStudentAddress">Student Address:</label>
+          <input type="text" id="verifyStudentAddress" required>
+          
+          <label for="certificateIndex">Certificate Index:</label>
+          <input type="number" id="certificateIndex" required> <!-- New field for certificate index -->
+      
+          <!-- Correct the Verify Certificate button's onclick attribute -->
+<button type="button" id="verifyCertificateButton" onclick="verifyCertificate()">Verify Certificate</button>
+
+        </form>
+      </div>
+      
+
+    
+    <div id="output"></div>
+    <div id="output-link"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.6/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
