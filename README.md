@@ -40,7 +40,7 @@ Follow these steps to set up and run the project locally.
     ```
 
 6. **Start Node Server**:
-    - Change directory to the `server` folder and run:
+    - Change directory to the `server` folder and run: (IN ANOTHER TERMINAL)
     ```
     nodemon index.js
     ```
