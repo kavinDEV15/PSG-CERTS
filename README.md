@@ -36,7 +36,7 @@ Follow these steps to set up and run the project locally.
 5. **Start HTTP Server**:
     - In the root directory of the project, run the following command to start the server:
     ```
-    http-server -p 3000
+    http-server -p 6969
     ```
 
 6. **Start Node Server**:
@@ -45,7 +45,7 @@ Follow these steps to set up and run the project locally.
     nodemon index.js
     ```
 
-Now, you can navigate to `http://localhost:3000` in your web browser to interact with the application.
+Now, you can navigate to `http://localhost:6969` in your web browser to interact with the application.
 
 7. For student address, get use an metmask wallet address.
                                                                                         
